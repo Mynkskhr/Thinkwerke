@@ -321,23 +321,26 @@ Link - AI Powered ASPM - https://github.com/jitendar-singh/securitymind
 ```mermaid
 
 flowchart LR
-  %% Z0: USERS & IDENTITY
-  subgraph Z0["User & Identity Zone"]
-    DEV["Developers\nWorkstations"]
-    KC["Keycloak\nIdP / SSO / MFA\nNIS2 A21 2j, 2i"]
-    VPN["VPN / ZTNA\nSecure Access to DC"]
+
+  %% ============================
+  %% USER & IDENTITY ZONE
+  %% ============================
+  subgraph Z0["User and Identity Zone"]
+    DEV["Developers"]
+    KC["Keycloak Identity Provider with SSO and MFA"]
+    VPN["VPN or Zero Trust Access"]
   end
 
-  %% Z1: DEV & SCM
-  subgraph Z1["Dev & SCM Zone (Private DC)"]
-    GL["GitLab Ultimate (Self-managed)\nSCM + Issues + Wiki\nSAST / DAST / SCA / Container Scan\nSBOM Collection\nNIS2 A21 2d, 2e, 2f"]
+  %% ============================
+  %% DEV & SCM ZONE
+  %% ============================
+  subgraph Z1["Dev and SCM Zone in Private Data Center"]
+    GL["GitLab Ultimate Self Managed with SAST DAST SCA and SBOM"]
   end
 
-  %% Z2: BUILD & ARTIFACTS
-  subgraph Z2["Build, Security & Artifact Zone"]
-    GR["GitLab Runners\nCI/CD Pipelines"]
-    REG["Container Registry\nSign]()
-
+  %% ============================
+  %% BUILD & ARTIFACT ZONE
+  %% ====================
 
 
 ```

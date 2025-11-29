@@ -322,68 +322,22 @@ Link - AI Powered ASPM - https://github.com/jitendar-singh/securitymind
 
 flowchart LR
   %% Z0: USERS & IDENTITY
-  subgraph Z0[User & Identity Zone]
-    DEV[Developers\nWorkstations]
-    KC[Keycloak\nIdP / SSO / MFA\n(A21:2j, 2i)]
-    VPN[VPN / ZTNA\nSecure Access to DC]
+  subgraph Z0["User & Identity Zone"]
+    DEV["Developers\nWorkstations"]
+    KC["Keycloak\nIdP / SSO / MFA\nNIS2 A21 2j, 2i"]
+    VPN["VPN / ZTNA\nSecure Access to DC"]
   end
 
   %% Z1: DEV & SCM
-  subgraph Z1[Dev & SCM Zone (Private DC)]
-    GL[GitLab Ultimate (Self-managed)\nSCM + Issues + Wiki\nSAST / DAST / SCA / Container Scan\nSBOM Collection\n(A21:2d,2e,2f)]
+  subgraph Z1["Dev & SCM Zone (Private DC)"]
+    GL["GitLab Ultimate (Self-managed)\nSCM + Issues + Wiki\nSAST / DAST / SCA / Container Scan\nSBOM Collection\nNIS2 A21 2d, 2e, 2f"]
   end
 
   %% Z2: BUILD & ARTIFACTS
-  subgraph Z2[Build, Security & Artifact Zone]
-    GR[GitLab Runners\nCI/CD Pipelines]
-    REG[Container Registry\nSigned & Scanned Images]
-    SBOM[SBOM Store\nComponents, Licenses,\nVuln Metadata]
-    SIGN[Signing Service\n(cosign / notary etc.)]
-  end
+  subgraph Z2["Build, Security & Artifact Zone"]
+    GR["GitLab Runners\nCI/CD Pipelines"]
+    REG["Container Registry\nSign]()
 
-  %% Z3: RUNTIME & SECOPS
-  subgraph Z3[Runtime & SecOps Zone]
-    subgraph K8S[Kubernetes Cluster(s)\nProd / Non-Prod]
-      ISTIO[Istio Service Mesh\nmTLS, AuthZ, Telemetry]
-      APP[Microservices / Apps\nContainers]
-      ING[Istio Ingress Gateway]
-    end
-    WAF[WAF / Reverse Proxy\n(Edge Protection)]
-    SIEM[Logging + SIEM/SOAR\nIncident Handling & Monitoring\n(A21:2b,2f)]
-    VSC[Infra / Network\nVulnerability Scanner]
-    BCP[Backup & DR\n(A21:2c)]
-  end
-
-  %% FLOWS: USERS & IDENTITY
-  DEV -->|SSO + MFA| KC
-  DEV -->|VPN / ZTNA| VPN --> GL
-  GL -->|OIDC/SAML| KC
-
-  %% DEV -> CI/CD
-  DEV -->|Git over SSH/HTTPS| GL
-  GL -->|CI Triggers| GR
-  GR -->|SAST/DAST/SCA Reports| GL
-  GR -->|Build Images & Artifacts| REG
-  GR -->|Generate SBOMs| SBOM
-  REG -->|Sign Images| SIGN
-
-  %% DEPLOYMENT
-  SIGN -->|Verified Images| REG
-  REG -->|Deploy Only Signed & Scanned\nImages via GitOps/CI| K8S
-  K8S --> ISTIO
-  ISTIO --> APP
-  WAF --> ING --> ISTIO
-
-  %% SECURITY & VISIBILITY
-  GL -->|Security Findings\n(Pipeline, Issues)| SIEM
-  REG -->|Registry Events| SIEM
-  K8S -->|Cluster & App Logs| SIEM
-  ISTIO -->|Mesh Telemetry\n(Access Logs, Metrics)| SIEM
-  VSC -->|Host/Network Findings| SIEM
-
-  %% RECOVERY
-  BCP -->|Restore GitLab, Registry,\nK8s Control Plane, etc.| GL
-  BCP --> K8S
 
 
 ```

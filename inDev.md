@@ -320,27 +320,68 @@ Link - AI Powered ASPM - https://github.com/jitendar-singh/securitymind
 
 ```mermaid
 
+
 flowchart LR
 
-  %% ============================
-  %% USER & IDENTITY ZONE
-  %% ============================
-  subgraph Z0["User and Identity Zone"]
-    DEV["Developers"]
-    KC["Keycloak Identity Provider with SSO and MFA"]
-    VPN["VPN or Zero Trust Access"]
-  end
+  %% STYLE
+  classDef zone fill:#f9f9f9,stroke:#999,stroke-width:1px,rounding:6px;
+  classDef comp fill:#ffffff,stroke:#555,stroke-width:1px,rounding:4px;
 
-  %% ============================
-  %% DEV & SCM ZONE
-  %% ============================
-  subgraph Z1["Dev and SCM Zone in Private Data Center"]
-    GL["GitLab Ultimate Self Managed with SAST DAST SCA and SBOM"]
+  %% ZONES
+  subgraph ID["Identity & Access"]
+    KC["Keycloak (SSO + MFA)"]
   end
+  class ID zone;
 
-  %% ============================
-  %% BUILD & ARTIFACT ZONE
-  %% ====================
+  subgraph DEV["Secure Development & SCM"]
+    GL["GitLab Ultimate (self-managed)"]
+  end
+  class DEV zone;
+
+  subgraph CI["Secure Build & Supply Chain"]
+    CI_RUN["GitLab Runners\nCI pipelines + SAST/DAST/SCA"]
+    REG["Container registry\nImages + SBOM"]
+    SIGN["Image signing"]
+  end
+  class CI zone;
+
+  subgraph RUN["Runtime Platform"]
+    K8S["Kubernetes clusters\nwith Istio mesh"]
+    WAF["WAF / reverse proxy"]
+  end
+  class RUN zone;
+
+  subgraph SEC["Security Operations & Resilience"]
+    SIEM["Logging + SIEM/SOAR"]
+    VSCAN["Infra / network vuln scanner"]
+    BCP["Backup & DR"]
+  end
+  class SEC zone;
+
+  %% FLOWS
+  DEV_USERS["Developers"] -->|SSO| KC
+  DEV_USERS -->|Git over HTTPS/SSH| GL
+  KC -->|AuthN / AuthZ| GL
+
+  GL -->|Trigger CI| CI_RUN
+  CI_RUN -->|Build + security scans| REG
+  CI_RUN -->|Generate SBOM| REG
+  REG -->|Signed images| SIGN
+  SIGN -->|Trusted images only| K8S
+
+  WAF --> K8S
+
+  %% OBSERVABILITY
+  GL -->|Security findings| SIEM
+  CI_RUN -->|Pipeline results| SIEM
+  REG -->|Registry events| SIEM
+  K8S -->|Cluster/app logs| SIEM
+  WAF -->|Access logs| SIEM
+  VSCAN -->|Host/network findings| SIEM
+
+  BCP -->|Restore GitLab, registry,\nKeycloak, K8s| GL
+  BCP --> K8S
+  BCP --> KC
 
 
 ```

@@ -489,3 +489,75 @@ flowchart TB
 
 
 ```
+
+
+```mermaid
+
+
+
+flowchart TB
+
+  A["Start: Germany-first rollout strategy"] --> B["Phase 1: Germany baseline NIS2 program"]
+  B --> C["Phase 2: Evidence engine and operating model"]
+  C --> D["Phase 3: Expand to other EU countries"]
+  D --> E["Phase 4: Sustain and scale across portfolio"]
+
+  subgraph P1["Phase 1: Germany baseline"]
+    direction TB
+    P1a["Scope: Germany entities and systems"]
+    P1b["Map: NIS2 requirements to controls"]
+    P1c["Define ownership and accountability"]
+    P1d["Initial executive reporting model"]
+  end
+
+  subgraph M1["Milestone"]
+    direction TB
+    M1a["Germany NIS2 transposition date: Jan 6, 2026"]
+    M1b["Target: Germany readiness with defensible evidence"]
+  end
+
+  subgraph P2["Phase 2: Evidence engine"]
+    direction TB
+    P2a["Implement control to proof workflow"]
+    P2b["Evidence library for audit and tenders"]
+    P2c["Reusable executive level documentation"]
+    P2d["Operational playbooks and review cadence"]
+  end
+
+  subgraph P3["Phase 3: EU expansion"]
+    direction TB
+    P3a["Country delta mapping"]
+    P3b["Add country specific controls where needed"]
+    P3c["Reuse Germany evidence and artifacts"]
+    P3d["Common reporting across countries"]
+  end
+
+  subgraph P4["Phase 4: Sustain and scale"]
+    direction TB
+    P4a["Continuous compliance monitoring"]
+    P4b["Portfolio onboarding playbook"]
+    P4c["Quarterly executive assurance pack"]
+    P4d["Tender and customer assurance enablement"]
+  end
+
+  B --> P1
+  P1 --> M1
+  M1 --> C
+  C --> P2
+  D --> P3
+  E --> P4
+
+  subgraph OUT["Executive outcomes"]
+    direction TB
+    O1["Germany compliant first, then scalable EU compliance"]
+    O2["Evidence produced once, reused many times"]
+    O3["No growth restrictions or rearchitecture"]
+    O4["Executives can read, steer, and defend decisions"]
+  end
+
+  P2 --> OUT
+  P3 --> OUT
+  P4 --> OUT
+
+
+```

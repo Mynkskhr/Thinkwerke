@@ -495,3 +495,18 @@ flowchart TB
 
 
 ```
+
+
+```mermaid
+
+
+flowchart TB
+  A[Regulations<br/>NIS2 • CRA • ISO 27001 • Customer requirements]
+  B[One Thinkwerke execution model<br/>Controls + Ownership + Cloud/CI/CD implementation]
+  C[Reusable evidence & executive visibility<br/>Audits • Tenders • Assurance]
+  D[Business outcomes<br/>Predictable compliance • Faster sales • No re-architecture • Leadership control]
+
+  A --> B --> C --> D
+
+
+```

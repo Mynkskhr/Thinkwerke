@@ -427,3 +427,71 @@ flowchart TD
 
 
 ```
+
+
+```mermaid
+
+
+flowchart TB
+  %% ===== LAYER 1: REGULATION =====
+  subgraph L1[European Regulatory Landscape]
+    direction LR
+    NIS2[NIS2<br/>(country-specific requirements)]
+    CRA[CRA<br/>(software & supply-chain obligations)]
+    ISO[ISO 27001<br/>(governance & assurance baseline)]
+    CUST[Customer / Tender<br/>security requirements]
+  end
+
+  T1[Translated once, not repeatedly]:::note
+
+  %% ===== LAYER 2: EXECUTION MODEL =====
+  subgraph L2[Thinkwerke Execution Model]
+    direction TB
+    subgraph P[Four execution pillars]
+      direction LR
+      P1[Unified Control Framework<br/>• one control model<br/>• country overlays (DE/FR/…)]
+      P2[Product & Platform Execution<br/>• cloud & CI/CD controls<br/>• no re-architecture]
+      P3[Clear Ownership Model<br/>• Diehl vs Vendor responsibilities<br/>• proof of accountability]
+      P4[Evidence-by-Design<br/>• evidence generated automatically<br/>• not manual]
+    end
+  end
+
+  T2[Continuous, reusable evidence]:::note
+
+  %% ===== LAYER 3: EVIDENCE & VISIBILITY =====
+  subgraph L3[Evidence & Executive Visibility]
+    direction LR
+    E1[Audit-ready evidence<br/>(NIS2 / ISO / CRA)]
+    E2[Tender & Sales packs<br/>(reusable, consistent)]
+    E3[Executive-readable documentation<br/>(no dependency on technical teams)]
+  end
+
+  T3[Confidence at leadership level]:::note
+
+  %% ===== LAYER 4: BUSINESS OUTCOMES =====
+  subgraph L4[Business Outcomes for Diehl Metering]
+    direction LR
+    O1[Predictable regulatory posture]
+    O2[Faster tenders & sales cycles]
+    O3[No growth restrictions<br/>(no rebuild / re-architecture)]
+    O4[Executive control & assurance]
+  end
+
+  F[One system • Multiple regulations • Zero rework]:::footer
+
+  %% ===== CONNECTIONS =====
+  NIS2 --> T1 --> L2
+  CRA  --> T1
+  ISO  --> T1
+  CUST --> T1
+
+  L2 --> T2 --> L3
+  L3 --> T3 --> L4
+  L4 --> F
+
+  %% ===== STYLES =====
+  classDef note fill:#eef3f8,stroke:#d6e0ea,color:#0b1f33,stroke-width:1px;
+  classDef footer fill:#03ACE9,stroke:#0299D1,color:#ffffff,stroke-width:1px;
+
+
+```

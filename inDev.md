@@ -561,3 +561,31 @@ flowchart TB
 
 
 ```
+
+
+```mermaid
+
+
+
+flowchart TD
+    A[EU NIS2 Directive] --> B[Unified NIS2 Control Framework]
+
+    B --> C[Germany NIS2UmsuCG]
+    B --> D[France Transposition]
+    B --> E[Netherlands Transposition]
+    B --> F[Other EU States]
+
+    C --> G[Country Specific Evidence]
+    D --> G
+    E --> G
+    F --> G
+
+    G --> H[Single Evidence Library]
+    H --> I[Audits]
+    H --> J[Tenders]
+    H --> K[Customers]
+    H --> L[Executive Oversight]
+
+
+
+```
